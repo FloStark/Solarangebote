@@ -9,27 +9,48 @@
 
     <style>
         :root {
-            --page-bg: #FAF7F2; /* Sehr helles Beige/Off-White */
-            --primary-beige: #E8D5C4; /* Warmes Beige für Akzente */
-            --secondary-beige: #D4BBAA; /* Etwas dunkleres Beige */
-            --text-dark: #5D4037; /* Dunkles Braun für Text */
-            --text-light: #FFFFFF;
-            --border-color: #D1C7BC;
+            --page-bg: #F8F9FA; /* Helles Neutralgrau, lässt Akzente wirken */
+            --primary-accent: #FFC300; /* Gold von SVG-Logo */
+            --secondary-accent: #003366; /* Dunkelblau von Logo-Text */
+            
+            --text-primary: var(--secondary-accent); /* Dunkelblau für Haupttexte/Überschriften */
+            --text-body: #343A40; /* Standard-Dunkelgrau für Fließtext für bessere Lesbarkeit */
+            --text-on-primary-accent: var(--secondary-accent); /* Dunkelblau auf Gold für guten Kontrast */
+            --text-on-secondary-accent: #FFFFFF; /* Weiß auf Dunkelblau */
+
             --card-bg: #FFFFFF;
-            --button-hover-bg: #D4BBAA;
-            --input-focus-border: #C7B2A0;
+            --border-color: #DEE2E6; /* Standard Bootstrap Border Color */
+            
+            --button-primary-bg: var(--primary-accent);
+            --button-primary-text: var(--text-on-primary-accent);
+            --button-primary-hover-bg: #E6B000; /* Dunkleres Gold */
+            --button-primary-border: var(--primary-accent);
+
+            --button-secondary-bg: var(--secondary-accent);
+            --button-secondary-text: var(--text-on-secondary-accent);
+            --button-secondary-hover-bg: #002244; /* Dunkleres Blau */
+            --button-secondary-border: var(--secondary-accent);
+
+            --input-focus-border: var(--primary-accent);
+            --input-focus-shadow: rgba(255, 195, 0, 0.25);
+
+            --progress-bar-bg: var(--primary-accent);
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--page-bg);
-            color: var(--text-dark);
+            color: var(--text-body);
             line-height: 1.6;
         }
 
         h1, h2, h3, h4, h5, h6 {
-            color: var(--text-dark);
+            color: var(--text-primary);
             font-weight: 600;
+        }
+        
+        .lead {
+            color: var(--text-body); /* Lead Text in body color oder spezifischer */
         }
 
         .navbar {
@@ -37,32 +58,35 @@
             border-bottom: 1px solid var(--border-color);
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--text-dark) !important;
+        
+        /* Spezifische Anpassung für den Navbar Brand Text (obwohl schon inline gestyled) */
+        .navbar-brand .brand-text-solar,
+        .navbar-brand .brand-text-angebote {
+            color: var(--secondary-accent) !important; /* Stellt sicher, dass die CSS Variable greift, falls inline entfernt wird */
+            font-weight: bold;
+            line-height: 1;
         }
         
         .btn-primary {
-            background-color: var(--primary-beige);
-            border-color: var(--primary-beige);
-            color: var(--text-dark);
+            background-color: var(--button-primary-bg);
+            border-color: var(--button-primary-border);
+            color: var(--button-primary-text);
             font-weight: 500;
             padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem; /* Abgerundete Ecken */
-            transition: background-color 0.3s ease, border-color 0.3s ease;
+            border-radius: 0.5rem;
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
         .btn-primary:hover, .btn-primary:focus {
-            background-color: var(--button-hover-bg);
-            border-color: var(--button-hover-bg);
-            color: var(--text-dark);
+            background-color: var(--button-primary-hover-bg);
+            border-color: var(--button-primary-hover-bg);
+            color: var(--button-primary-text);
         }
 
         .btn-secondary {
-            background-color: var(--secondary-beige);
-            border-color: var(--secondary-beige);
-            color: var(--text-dark);
+            background-color: var(--button-secondary-bg);
+            border-color: var(--button-secondary-border);
+            color: var(--button-secondary-text);
             font-weight: 500;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
@@ -70,47 +94,47 @@
         }
 
         .btn-secondary:hover, .btn-secondary:focus {
-            background-color: #C0A997; /* Etwas dunkler für Hover */
-            border-color: #C0A997;
-            color: var(--text-dark);
+            background-color: var(--button-secondary-hover-bg);
+            border-color: var(--button-secondary-hover-bg);
+            color: var(--button-secondary-text);
         }
         
-        .btn-outline-primary {
-            color: var(--primary-beige);
-            border-color: var(--primary-beige);
+        .btn-outline-primary { /* Passt sich an das primäre Akzentfarbschema an */
+            color: var(--button-primary-bg);
+            border-color: var(--button-primary-bg);
             font-weight: 500;
             padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
         }
 
         .btn-outline-primary:hover {
-            background-color: var(--primary-beige);
-            color: var(--text-dark);
+            background-color: var(--button-primary-bg);
+            color: var(--button-primary-text);
         }
 
         .form-control, .form-select {
-            border-radius: 0.5rem; /* Abgerundete Ecken für Eingabefelder */
+            border-radius: 0.5rem;
             border: 1px solid var(--border-color);
         }
 
         .form-control:focus, .form-select:focus {
             border-color: var(--input-focus-border);
-            box-shadow: 0 0 0 0.25rem rgba(232, 213, 196, 0.35); /* Leichter Schatten passend zum Beige */
+            box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
         }
 
         .card {
             border: 1px solid var(--border-color);
-            border-radius: 0.75rem; /* Stärker abgerundete Ecken für Karten */
+            border-radius: 0.75rem;
             box-shadow: 0 4px 8px rgba(0,0,0,0.07);
             background-color: var(--card-bg);
         }
         
         .progress-bar {
-            background-color: var(--primary-beige);
+            background-color: var(--progress-bar-bg);
         }
 
         .step {
-            display: none; /* Schritte standardmäßig ausblenden */
+            display: none; 
             animation: fadeIn 0.5s;
         }
 
@@ -124,37 +148,51 @@
         }
 
         .offer-details {
-            background-color: #fff; /* Weißer Hintergrund für das Angebot für besseren Kontrast beim Druck */
+            background-color: #fff;
             padding: 2rem;
             border: 1px solid var(--border-color);
             border-radius: 0.5rem;
         }
         
         .footer {
-            background-color: var(--secondary-beige);
-            color: var(--text-dark);
+            background-color: var(--secondary-accent); /* Dunkelblau */
+            color: var(--text-on-secondary-accent); /* Weiß */
             padding: 2rem 0;
             margin-top: 3rem;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--button-secondary-hover-bg); /* Etwas dunklere Kante oben */
         }
         .footer p {
             margin-bottom: 0.5rem;
         }
         .footer a {
-            color: var(--text-dark);
+            color: var(--primary-accent); /* Goldene Links im Footer */
             text-decoration: none;
+            font-weight: 500;
         }
         .footer a:hover {
             text-decoration: underline;
+            color: #FFD700; /* Helleres Gold beim Hover */
         }
+        
+        #confirmationMessage { /* Bestätigungsnachricht mit Akzentfarbe */
+            background-color: #E6F7FF; /* Helles Blau passend zum Schema */
+            color: var(--secondary-accent);
+            border-color: #B3E0FF; /* Passender Border */
+        }
+        .alert-success { /* Überschreiben für Konsistenz, falls Bootstrap Standard verwendet wird */
+             background-color: #E6F7FF; 
+            color: var(--secondary-accent);
+            border-color: #B3E0FF;
+        }
+
 
         /* Stile für den Druck */
         @media print {
             body * {
-                visibility: hidden; /* Alles ausblenden */
+                visibility: hidden;
             }
             #angebotSectionToPrint, #angebotSectionToPrint * {
-                visibility: visible; /* Nur Angebotsbereich sichtbar machen */
+                visibility: visible;
             }
             #angebotSectionToPrint {
                 position: absolute;
@@ -167,19 +205,22 @@
                 box-shadow: none;
             }
             .no-print {
-                display: none !important; /* Elemente mit dieser Klasse im Druck ausblenden */
-            }
-            .btn { /* Buttons im Druck ausblenden */
                 display: none !important;
             }
-            .navbar, .footer, #questionnaireSection, #imageSection {
+            .btn {
                 display: none !important;
             }
-            h2, h3 { /* Sorgen für gute Lesbarkeit im Druck */
+            .navbar, .footer, #questionnaireSection, #imageSection, #confirmationMessage { /* confirmationMessage auch ausblenden */
+                display: none !important;
+            }
+            h1, h2, h3, h4, h5, h6, p, li, span { /* Sicherstellen, dass Text im Druck schwarz ist für Lesbarkeit */
                 color: #000 !important;
             }
-            p, li {
-                color: #333 !important;
+            .offer-details { /* Spezifische Druckanpassungen für das Angebot */
+                border: 1px solid #ccc !important;
+            }
+            #angebotSectionToPrint p strong {
+                 color: #000 !important;
             }
         }
     </style>
@@ -188,9 +229,13 @@
 
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-inline-block align-text-top me-2"><path d="M12 2L12 12L22 12L12 22L2 12L12 12Z" fill="var(--primary-beige)" stroke="var(--text-dark)"></path><path d="M12 2L12 12L22 12L12 22L2 12L12 12Z"></path></svg>
-                SolarAngebote Graz
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#FFC300" class="bi bi-sun me-2" viewBox="0 0 16 16">
+                    <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6m0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+                </svg>
+                <div style="line-height: 1;"> <div class="brand-text-solar" style="color: #003366; font-weight: bold;">SOLAR</div>
+                    <div class="brand-text-angebote" style="color: #003366; font-weight: bold;">ANGEBOTE</div>
+                </div>
             </a>
         </div>
     </nav>
@@ -200,14 +245,14 @@
         <div class="row mb-5 text-center">
             <div class="col-md-8 mx-auto">
                 <h1 class="display-5 mb-3">Ihr Weg zur eigenen Solaranlage</h1>
-                <p class="lead" style="color: var(--text-dark);">Beantworten Sie wenige Fragen und erhalten Sie Ihr unverbindliches Erstangebot. Schnell, einfach und transparent – von Ihrem erfahrenen Partner in Graz und Umgebung.</p>
+                <p class="lead">Beantworten Sie wenige Fragen und erhalten Sie Ihr unverbindliches Erstangebot. Schnell, einfach und transparent – von Ihrem erfahrenen Partner in Graz und Umgebung.</p>
             </div>
         </div>
 
         <div class="row mb-5 g-4" id="imageSection">
             <div class="col-md-4">
                 <div class="card h-100">
-                    <img src="https://placehold.co/600x400/E8D5C4/5D4037?text=Moderne+Solaranlage" class="card-img-top" alt="Moderne Solaranlage auf einem Dach">
+                    <img src="https://placehold.co/600x400/FFC300/003366?text=Moderne+Solaranlage" class="card-img-top" alt="Moderne Solaranlage auf einem Dach">
                     <div class="card-body">
                         <h5 class="card-title">Effiziente Solarmodule</h5>
                         <p class="card-text">Hochwertige Technologie für maximale Energieausbeute.</p>
@@ -216,7 +261,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card h-100">
-                    <img src="https://placehold.co/600x400/FAF7F2/5D4037?text=Professionelle+Montage" class="card-img-top" alt="Professionelle Montage einer PV-Anlage">
+                     <img src="https://placehold.co/600x400/F8F9FA/003366?text=Professionelle+Montage" class="card-img-top" alt="Professionelle Montage einer PV-Anlage">
                     <div class="card-body">
                         <h5 class="card-title">Fachgerechte Installation</h5>
                         <p class="card-text">Unsere Experten sorgen für eine sichere und schnelle Montage.</p>
@@ -225,7 +270,7 @@
             </div>
             <div class="col-md-4">
                 <div class="card h-100">
-                    <img src="https://placehold.co/600x400/D4BBAA/5D4037?text=Nachhaltige+Energie" class="card-img-top" alt="Illustration einer glücklichen Familie mit Solarenergie">
+                    <img src="https://placehold.co/600x400/003366/FFC300?text=Nachhaltige+Energie" class="card-img-top" alt="Illustration einer glücklichen Familie mit Solarenergie">
                     <div class="card-body">
                         <h5 class="card-title">Nachhaltige Zukunft</h5>
                         <p class="card-text">Investieren Sie in saubere Energie und senken Sie Ihre Kosten.</p>
@@ -392,7 +437,7 @@
                 </div>
             </div>
         </div>
-         <div id="confirmationMessage" class="alert alert-success mt-4" style="display: none;" role="alert">
+        <div id="confirmationMessage" class="alert alert-success mt-4" style="display: none;" role="alert">
             Vielen Dank für Ihre Anfrage! Ihr unverbindliches Angebot wurde generiert. Wir werden uns in Kürze bei Ihnen melden.
         </div>
 
@@ -401,20 +446,18 @@
     <footer class="footer text-center">
         <div class="container">
             <p>&copy; <span id="currentYear"></span> SolarAngebote Graz - Ihr Experte für Photovoltaik</p>
-            <p>Musterstraße 1, 8010 Graz | <a href="tel:+43123456789">Tel: +43 123 456789</a> | <a href="mailto:info@solarangebote-graz.at">info@solarangebote-graz.at</a></p>
+            <p>Grazer Straße 63, 8061 St. Radegund bei Graz | <a href="tel:+436644120831">Tel: +43 664 4120831</a> | <a href="mailto:info@solarangebote-graz.at">info@solarangebote-graz.at</a></p>
             <p>Wir verfügen über langjährige Erfahrung in der Planung und Installation von PV-Anlagen in Graz und der gesamten Steiermark.</p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
     <script>
         let currentStep = 1;
-        const totalSteps = 4; // Anzahl der Schritte im Formular
+        const totalSteps = 4; 
 
-        // Funktion zum Anzeigen des nächsten Schritts
         function nextStep(step) {
-            if (!validateStep(currentStep)) return; // Validierung des aktuellen Schritts
+            if (!validateStep(currentStep)) return; 
             
             document.getElementById('step' + currentStep).classList.remove('active');
             currentStep = step;
@@ -422,7 +465,6 @@
             updateProgressBar();
         }
 
-        // Funktion zum Anzeigen des vorherigen Schritts
         function prevStep(step) {
             document.getElementById('step' + currentStep).classList.remove('active');
             currentStep = step;
@@ -430,47 +472,45 @@
             updateProgressBar();
         }
         
-        // Funktion zur Validierung des aktuellen Schritts
         function validateStep(stepNumber) {
             const currentStepDiv = document.getElementById('step' + stepNumber);
             const inputs = currentStepDiv.querySelectorAll('input[required], select[required]');
             let isValid = true;
             inputs.forEach(input => {
-                if (!input.value || (input.type === 'checkbox' && !input.checked)) {
+                input.classList.remove('is-invalid'); // Reset validation
+                if (!input.value.trim() || (input.type === 'checkbox' && !input.checked)) {
                     input.classList.add('is-invalid');
                     isValid = false;
                 } else {
-                    input.classList.remove('is-invalid');
-                    // Zusätzliche Pattern-Validierung für PLZ
                     if (input.id === 'location' && input.pattern) {
                         const regex = new RegExp(input.pattern);
-                        if (!regex.test(input.value)) {
+                        if (!regex.test(input.value.trim())) {
                             input.classList.add('is-invalid');
                             isValid = false;
                         }
+                    }
+                     if (input.type === 'email' && input.value.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input.value.trim())) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
                     }
                 }
             });
             return isValid;
         }
 
-        // Funktion zur Aktualisierung der Fortschrittsanzeige
         function updateProgressBar() {
             const progress = (currentStep / totalSteps) * 100;
             document.getElementById('progressBar').style.width = progress + '%';
             document.getElementById('progressBar').setAttribute('aria-valuenow', progress);
         }
 
-        // Event-Listener für das Absenden des Formulars
         document.getElementById('pvForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Standard-Submit verhindern
+            event.preventDefault(); 
             if (!validateStep(currentStep)) return;
 
-            // Formulardaten sammeln
             const formData = new FormData(this);
             const data = Object.fromEntries(formData.entries());
 
-            // Angebot generieren und anzeigen
             document.getElementById('offerRoofType').textContent = data.roofType ? document.querySelector(`#roofType option[value="${data.roofType}"]`).text : 'Nicht angegeben';
             document.getElementById('offerRoofArea').textContent = data.roofArea || 'Nicht angegeben';
             document.getElementById('offerRoofOrientation').textContent = data.roofOrientation ? document.querySelector(`#roofOrientation option[value="${data.roofOrientation}"]`).text : 'Nicht angegeben';
@@ -484,36 +524,31 @@
             document.getElementById('offerContactEmail').textContent = data.contactEmail || 'Nicht angegeben';
             document.getElementById('offerContactPhone').textContent = data.contactPhone || 'Nicht angegeben';
 
-
-            // Einfache "Berechnung" für Anlagengröße und Ertrag
             let systemSize = 0;
             if (data.roofArea && !isNaN(parseFloat(data.roofArea))) {
-                systemSize = (parseFloat(data.roofArea) / 8).toFixed(1); // Grobe Schätzung: 8m² pro kWp
+                systemSize = (parseFloat(data.roofArea) / 8).toFixed(1); 
             } else if (data.electricityConsumption && !isNaN(parseFloat(data.electricityConsumption))) {
-                systemSize = (parseFloat(data.electricityConsumption) / 900).toFixed(1); // Grobe Schätzung: 900 kWh Ertrag pro kWp
+                systemSize = (parseFloat(data.electricityConsumption) / 900).toFixed(1); 
             }
-             systemSize = Math.max(2, Math.min(30, systemSize)); // Mind. 2 kWp, Max. 30 kWp für diese Schätzung
+            systemSize = Math.max(2, Math.min(30, parseFloat(systemSize) || 0)); 
 
             document.getElementById('offerSystemSize').textContent = systemSize > 0 ? systemSize : 'Nach Bedarf';
-            document.getElementById('offerAnnualYield').textContent = systemSize > 0 ? (systemSize * 950).toFixed(0) : 'Nach Bedarf'; // 950 kWh/kWp als grober Ertrag
+            document.getElementById('offerAnnualYield').textContent = systemSize > 0 ? (systemSize * 950).toFixed(0) : 'Nach Bedarf';
 
-            // Fragebogen ausblenden und Angebot einblenden
             document.getElementById('questionnaireSection').style.display = 'none';
-            document.getElementById('imageSection').style.display = 'none'; // Bilder auch ausblenden
+            document.getElementById('imageSection').style.display = 'none'; 
             document.getElementById('offerSection').style.display = 'block';
             document.getElementById('confirmationMessage').style.display = 'block';
-            window.scrollTo(0, 0); // Nach oben scrollen
+            window.scrollTo(0, 0); 
         });
 
-        // Funktion zum Drucken des Angebots
         function printOffer() {
             window.print();
         }
         
-        // Funktion für eine neue Anfrage
         function startNewQuote() {
-            document.getElementById('pvForm').reset(); // Formular zurücksetzen
-            currentStep = 1; // Auf ersten Schritt zurücksetzen
+            document.getElementById('pvForm').reset(); 
+            currentStep = 1; 
             updateProgressBar();
             document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
             document.getElementById('step1').classList.add('active');
@@ -521,19 +556,13 @@
             document.getElementById('offerSection').style.display = 'none';
             document.getElementById('confirmationMessage').style.display = 'none';
             document.getElementById('questionnaireSection').style.display = 'block';
-            document.getElementById('imageSection').style.display = 'flex'; // Bilder wieder einblenden (flex, da row)
-             // Validierungsmarkierungen entfernen
+            document.getElementById('imageSection').style.display = 'flex'; 
             document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
             window.scrollTo(0, 0);
         }
 
-        // Aktuelles Jahr im Footer setzen
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        
-        // Initialen Fortschrittsbalken setzen
         updateProgressBar();
-
     </script>
 </body>
 </html>
-
